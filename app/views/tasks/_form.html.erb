@@ -1,0 +1,32 @@
+
+
+<%= form_with(model:task, local:true) do |t|  %>
+
+    <% if task.errors.any? %>
+        <div id = "error_explanation">
+            <ul>        
+            <% task.errors.full_messages.each do |msg| %>
+                
+                <% if msg == "Status can't be blank" %>
+                    <% msg = "ステータスには何かしら入力してください"%>
+                    <li><%= msg %></li>
+                <% elsif msg == "Status is too long (maximum is 10 characters)" %>
+                    <% msg = "ステータスは10文字以内でお願いします"%>
+                    <li><%= msg %></li>
+                <%else %>
+                    <li><%= msg %></li>
+                <% end %>
+                
+            <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <%= t.label :status,'ステータス'%>
+    <%= t.text_field :status %>
+
+    <%= t.label :content,'タスク'%>
+    <%= t.text_field :content %>
+    
+    <%= t.submit '送信' %>
+<% end %>

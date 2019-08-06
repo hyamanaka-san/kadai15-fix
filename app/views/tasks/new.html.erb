@@ -1,10 +1,6 @@
 <h1>新規タスク入力ページ</h1>
 
-<%= form_with(model:@task, local:true) do |t| %>
-    <%= t.label :content,'タスク'%>
-    <%= t.text_field :content %>
-    
-    <%= t.submit '送信' %>
-<% end %>
+<%= render 'form',task: @task %>
+
 
 <%= link_to '一覧に戻る',tasks_path %>
