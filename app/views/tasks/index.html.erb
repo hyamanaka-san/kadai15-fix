@@ -1,9 +1,38 @@
-<h1>タスク一覧</h1>
+<h1>タスク管理TOP</h1>
 
-<ul>
-    <% @tasks.each do |task|%>
-    <li><%= link_to task.id , task_path(task) %>:<%= task.status %> <%= task.content %></li>
-    <% end %>
-</ul>
+<%# if logged_in? %>
+  
+<%# else %>
 
-<%= link_to  '新規タスクの投稿', new_task_path %>
+     
+      
+      <h2><%= current_user.name %>さん、タスクを登録しよう！</h2>
+
+        <%= form_with(model: @task, local: true) do |t|  %>
+        
+            <%= t.label :status,'ステータス'%>
+            <%= t.text_field :status %>
+            <p>
+            <%= t.label :content,'タスク'%>
+            <%= t.text_field :content %>
+            <p>
+            <%= t.submit 'タスクを登録する' %>
+            
+        <% end %>
+
+
+<%# end %>
+        <h2><%= current_user.name %>さんのタスクリスト！</h2>
+        <ul>
+            <% @tasks.each do |task|%>
+            <li><%= link_to task.id , task_path(task) %>:<%= task.status %> <%= task.content %></li>
+            <% end %>
+        </ul>
+
+
+<%#= render 'tasks/tasks', tasks: @tasks %>
+
+
+<%#= link_to '登録する', register_path %>
+
+<%#= link_to  '新規タスクの投稿', new_task_path %>

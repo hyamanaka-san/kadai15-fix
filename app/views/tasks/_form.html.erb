@@ -2,7 +2,7 @@
 
 <%= form_with(model:task, local:true) do |t|  %>
 
-    <% if task.errors.any? %>
+    <% if @task.errors.any? %>
         <div id = "error_explanation">
             <ul>        
             <% task.errors.full_messages.each do |msg| %>

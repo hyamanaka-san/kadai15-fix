@@ -1,32 +1,47 @@
 class TasksController < ApplicationController
     before_action :set_task, only: [:show, :edit, :update, :destroy]
-    
+    before_action :require_user_logged_in
+    before_action :correct_user, only: [:show, :edit, :update, :destroy]
     
     def index
-        @tasks = Task.all
+        #@tasks = Task.where(status: 'done')
+        
+        
+        if logged_in?
+            @task = current_user.tasks.build  
+            @tasks = current_user.tasks.order(id: :desc).page(params[:page]) #自分のだけ
+        #@tasks = Task.all
+       
+        
+        else
+            redirect_to login_path
+          #  @tasks = Task.all
+        end
     end
+    
     
     def show
         
     end
 
-    def new
-        @task = Task.new
-    end
+#    def new
+#        @task = Task.new
+#    end
     
     def create
-       
-        @task = Task.new(task_params)
         
+        @task = current_user.tasks.build(task_params)
+        
+    
         if @task.save
-            flash[:success] = 'task が正常に投稿されました'
-            redirect_to @task
-            
+          flash[:success] = 'メッセージを投稿しました。'
+          redirect_to root_url
         else
-            flash.now[:danger] = 'task が投稿されませんでした'
-            render :new
+          @task = current_user.tasks.order(id: :desc).page(params[:page])
+          flash.now[:danger] = 'メッセージの投稿に失敗しました。'
+          redirect_to root_url
         end
-       
+      
     end
     
     def edit 
@@ -66,5 +81,11 @@ class TasksController < ApplicationController
         params.require(:task).permit(:content, :status)
     end
 
+    def correct_user
+        @task = current_user.tasks.find_by(id: params[:id])
+        unless @task
+            redirect_to root_path
+        end
+    end
     
 end
