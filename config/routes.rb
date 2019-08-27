@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     get 'register', to: 'users#new'
     
     resources :tasks
-    resources :users
+    resources :users, only: [:new, :create]
     
    # resources :tasks do
    #     collection do
