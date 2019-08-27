@@ -2,7 +2,7 @@
 
 <% if logged_in? %>
 
-    <%= link_to 'プロフィール', user_path(current_user) %>
+    <%#= link_to 'プロフィール', user_path(current_user) %>
     <%= link_to 'ログアウト', logout_path, method: :delete %>
     <%= current_user.name %>でログイン中！
 

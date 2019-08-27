@@ -1,0 +1,41 @@
+    <%= form_with(model:user, local:true) do |t|  %>
+
+        <% if @user.errors.any? %>
+            <div id = "error_explanation">
+                <ul>        
+                <% user.errors.full_messages.each do |msg| %>
+                    
+    
+                        <li><%= msg %></li>
+                    
+                    
+                <% end %>
+                </ul>
+            </div>
+         <% end %>
+    
+    <%= form_with(model: @user, local: true) do |f| %>
+      
+      
+        <%= f.label :name, 'Name' %>
+        <%= f.text_field :name %>
+      
+        <p>
+      
+        <%= f.label :email, 'Email' %>
+        <%= f.email_field :email %>
+      
+        <p>
+    
+        <%= f.label :password, 'Password' %>
+        <%= f.password_field :password %>
+        6文字以上でお願いします
+        
+        <p>
+        <%= f.label :password_confirmation, 'Confirmation' %>
+        <%= f.password_field :password_confirmation %>
+        <p>     
+
+      <%= f.submit '登録' %>
+    <% end %>
+<% end %>

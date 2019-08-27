@@ -10,11 +10,11 @@ Rails.application.routes.draw do
     resources :tasks
     resources :users
     
-    resources :tasks do
-        collection do
-        get 'error'
-        end
-    end
+   # resources :tasks do
+   #     collection do
+    #    get 'error'
+    #    end
+    #end
         
  
 end

@@ -1,11 +1,8 @@
-<h1>新規タスク入力ページ</h1>
-
-<%#=<% if logged_in? %>
+<h1>タスク管理TOP</h1>
 
 
-
-
+<h2><%= current_user.name %>さん、タスクを登録しよう！</h2>
+      
 <%= render 'form',task: @task %>
 
 
-<%= link_to '一覧に戻る',tasks_path %>

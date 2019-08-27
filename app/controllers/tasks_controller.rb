@@ -1,7 +1,9 @@
 class TasksController < ApplicationController
-    before_action :set_task, only: [:show, :edit, :update, :destroy]
+    #before_action :set_task, only: [:show, :edit, :update, :destroy]
     before_action :require_user_logged_in
     before_action :correct_user, only: [:show, :edit, :update, :destroy]
+    
+    
     
     def index
         #@tasks = Task.where(status: 'done')
@@ -24,9 +26,9 @@ class TasksController < ApplicationController
         
     end
 
-#    def new
-#        @task = Task.new
-#    end
+    def new
+        @task = Task.new
+    end
     
     def create
         
@@ -34,12 +36,14 @@ class TasksController < ApplicationController
         
     
         if @task.save
-          flash[:success] = 'メッセージを投稿しました。'
+          flash[:success] = 'タスクを登録しました。'
           redirect_to root_url
         else
-          @task = current_user.tasks.order(id: :desc).page(params[:page])
-          flash.now[:danger] = 'メッセージの投稿に失敗しました。'
-          redirect_to root_url
+          #@task = current_user.tasks.order(id: :desc).page(params[:page])
+          #flash.now[:danger] = 'タスクの登録に失敗しました。'
+          #redirect_to root_url
+          flash.now[:danger] = 'task の登録に失敗しました'
+          render :new
         end
       
     end
@@ -53,10 +57,10 @@ class TasksController < ApplicationController
         
         
         if @task.update(task_params)
-           flash[:success] = 'task が正常に更新されました'
+           flash[:success] = 'task を更新しました'
            redirect_to @task
         else
-            flash.now[:danger] = 'task は更新されませんでした'
+            flash.now[:danger] = 'task の更新に失敗しました'
             render :edit
         end
         
@@ -67,15 +71,15 @@ class TasksController < ApplicationController
         @task.destroy
         #Task.find(params[:id]).destroy
         
-        flash[:success] = 'task は正常に削除されました'
+        flash[:success] = 'task を削除しました。'
         redirect_to tasks_url
     end
 
     private
     
-    def set_task
-        @task = Task.find(params[:id])
-    end
+    #def set_task
+    #    @task = Task.find(params[:id])
+    #end
 
     def task_params
         params.require(:task).permit(:content, :status)

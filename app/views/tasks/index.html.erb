@@ -3,22 +3,13 @@
 <%# if logged_in? %>
   
 <%# else %>
-
-     
       
       <h2><%= current_user.name %>さん、タスクを登録しよう！</h2>
+      
+      <%= render 'form',task: @task %>
 
-        <%= form_with(model: @task, local: true) do |t|  %>
+
         
-            <%= t.label :status,'ステータス'%>
-            <%= t.text_field :status %>
-            <p>
-            <%= t.label :content,'タスク'%>
-            <%= t.text_field :content %>
-            <p>
-            <%= t.submit 'タスクを登録する' %>
-            
-        <% end %>
 
 
 <%# end %>
@@ -28,6 +19,8 @@
             <li><%= link_to task.id , task_path(task) %>:<%= task.status %> <%= task.content %></li>
             <% end %>
         </ul>
+
+
 
 
 <%#= render 'tasks/tasks', tasks: @tasks %>

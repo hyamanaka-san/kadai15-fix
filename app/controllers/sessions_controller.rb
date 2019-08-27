@@ -10,10 +10,10 @@ class SessionsController < ApplicationController
     
     if login(email, password)
       flash[:success] = 'ログインに成功しました。'
-      redirect_to tasks_path
+      redirect_to root_path
     else
       @error = 'ログインに失敗しました。'
-      redirect_to login_path,alert: 'ERROR!!'
+      redirect_to login_path,alert: 'ログインに失敗しました。'
     end
   end
 
